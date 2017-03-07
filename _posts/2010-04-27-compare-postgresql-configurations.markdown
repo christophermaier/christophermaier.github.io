@@ -5,9 +5,19 @@ redirect_from:
   - /blog/2010/04/27/compare-postgresql-configurations/
 ---
 
-I'm in the process of migrating from an older version of PostgreSQL to a newer version.  I'd like to see what the differences are between the configuration (`${PG_DATA}/postgresql.conf`) of both servers.  I couldn't find an easy, ready-made solution, so I hacked up one using plain old SQL, which turns out to be particularly well suited to comparing sets of data :)
+I'm in the process of migrating from an older version of PostgreSQL to
+a newer version.  I'd like to see what the differences are between the
+configuration (`${PG_DATA}/postgresql.conf`) of both servers.  I
+couldn't find an easy, ready-made solution, so I hacked up one using
+plain old SQL, which turns out to be particularly well suited to
+comparing sets of data :)
 
-First, get the settings from the old server.  We'll use [`psql`][psql] to execute the [`SHOW ALL`][showall] query and pipe the result (stripped of all extraneous formatting) to the file `old_settings.txt`.  (I'm using the long versions of the command flags, as well as adding in lots of newlines, to aid in readability and comprehensibility.)
+First, get the settings from the old server.  We'll use [`psql`][psql]
+to execute the [`SHOW ALL`][showall] query and pipe the result
+(stripped of all extraneous formatting) to the file
+`old_settings.txt`.  (I'm using the long versions of the command
+flags, as well as adding in lots of newlines, to aid in readability
+and comprehensibility.)
 
 ``` bash
 psql --username postgres \
@@ -21,7 +31,8 @@ psql --username postgres \
      --command 'show all'
 ```
 
-Now, we'll need the settings from the new server.  We use the same trick, but pipe the output to the `new_settings.txt` file, instead.
+Now, we'll need the settings from the new server.  We use the same
+trick, but pipe the output to the `new_settings.txt` file, instead.
 
 ``` bash
 psql --username postgres \
@@ -35,7 +46,10 @@ psql --username postgres \
      --command 'show all'
 ```
 
-So now we have the data in a format that is easily loaded into a PostgreSQL database!  On some other database, we create some simple tables to hold the information; their format is that of the output of the `SHOW ALL` command.
+So now we have the data in a format that is easily loaded into a
+PostgreSQL database!  On some other database, we create some simple
+tables to hold the information; their format is that of the output of
+the `SHOW ALL` command.
 
 ``` sql
 CREATE TABLE old_server(parameter TEXT, value TEXT, description TEXT);
@@ -49,7 +63,8 @@ Now copy the information into the tables using the `\copy` command:
 \copy new_server from ./new_settings.txt delimiter as '|'
 ```
 
-We'll create a view to massage this data into a nice report in order to more easily see what's different:
+We'll create a view to massage this data into a nice report in order
+to more easily see what's different:
 
 ``` sql
 CREATE VIEW configurations AS
@@ -66,7 +81,8 @@ LEFT JOIN old_server AS older  -- there might be some parameters that are no lon
 ;
 ```
 
-Finally, we can execute some simple queries on this view to show us what's going on:
+Finally, we can execute some simple queries on this view to show us
+what's going on:
 
 ``` sql
 -- What parameters are different?

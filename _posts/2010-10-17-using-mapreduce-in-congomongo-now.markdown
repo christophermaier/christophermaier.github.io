@@ -5,9 +5,12 @@ redirect_from:
   - /blog/2010/10/17/using-mapreduce-in-congomongo-now/
 ---
 
-My patch to Congomongo that adds support for running MapReduce jobs in MongoDB [was accepted][], but that code hasn't yet been pushed out to the official Congomongo SNAPSHOT jar in Clojars.
+My patch to Congomongo that adds support for running MapReduce jobs in
+MongoDB [was accepted][], but that code hasn't yet been pushed out to
+the official Congomongo SNAPSHOT jar in Clojars.
 
-Until that happens, if you'd like to use the new MapReduce code, you can use [my version][].
+Until that happens, if you'd like to use the new MapReduce code, you
+can use [my version][].
 
 If you're using Leiningen, add this to your `project.clj`:
 
