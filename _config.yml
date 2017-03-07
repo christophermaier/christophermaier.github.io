@@ -18,8 +18,8 @@ gems:
   - jekyll-feed
   - jekyll-redirect-from
 #  - jekyll-archives
-feed:
-  path: atom.xml
+# feed:
+#   path: atom.xml
 exclude:
   - Gemfile
   - Gemfile.lock
