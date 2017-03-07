@@ -1,40 +1,24 @@
 title: "Christopher Maier's Technical Blog"
 email: ""
-description: > # this means to ignore newlines until "baseurl:"
+description: >
   Miscellaneous writings from a software engineer
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://christophermaier.name" # the base hostname & protocol for your site, e.g. http://example.com
-#url: https://christophermaier.github.io
+baseurl: ""
+url: "http://christophermaier.name"
 twitter_username: _cwm_
-
 github_username: christophermaier
-# Build settings
-markdown: kramdown
-theme: minima
 disqus:
     shortname: christophermaier
 google_analytics: UA-18090378-1
+markdown: kramdown
+theme: minima
 gems:
   - jekyll-feed
   - jekyll-redirect-from
-#  - jekyll-archives
-# feed:
-#   path: atom.xml
 exclude:
   - Gemfile
   - Gemfile.lock
   - vendor
-jekyll-archives:
-  enabled: ['year']
-  layout: 'archive'
-  permalinks:
-    year: '/:year/'
-    month: '/:year/:month/'
-    day: '/:year/:month/:day/'
-    tag: '/tag/:name/'
-    category: '/category/:name/'
 permalink: pretty
-
 defaults:
   - scope:
       path: _posts
