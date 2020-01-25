@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Host-Only Networking with VirtualBox - Christopher Maier&#39;s Technical Blog</title>
+  <meta name="description" content="I&#39;ve been playing around with VirtualBox lately, and it&#39;s pretty nifty. Initially I just used it to set up an Ubuntu machine so I could easily run GnuCash on my MacBook, but lately I&#39;ve decided to start using it at work, too. I&#39;ve got lots of plans: figure out how to use Chef, set up my own Hudson server, get a MongoDB cluster running, etc. I&#39;d like all of these machines to be able to access the internet for downloading packages and the like, and I also want to be able to access them easily from my host machine."><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Christopher Maier\x27s Technical Blog",
+    
+    "url": "http:\/\/christophermaier.name"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "http:\/\/christophermaier.name"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http:\/\/christophermaier.name",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "http:\/\/christophermaier.name\/2010\/09\/01\/host-only-networking-with-virtualbox\/",
+          "name": "Host only networking with virtual box"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : ""
+  },
+  "headline": "Host-Only Networking with VirtualBox",
+  "description" : "I\x27ve been playing around with VirtualBox lately, and it\x27s pretty nifty. Initially I just used it to set up an Ubuntu machine so I could easily run GnuCash on my MacBook, but lately I\x27ve decided to start using it at work, too. I\x27ve got lots of plans: figure out how to use Chef, set up my own Hudson server, get a MongoDB cluster running, etc. I\x27d like all of these machines to be able to access the internet for downloading packages and the like, and I also want to be able to access them easily from my host machine.",
+  "inLanguage" : "en",
+  "wordCount":  697 ,
+  "datePublished" : "2010-09-01T00:00:00",
+  "dateModified" : "2010-09-01T00:00:00",
+  "image" : "http:\/\/christophermaier.name",
+  "keywords" : [ "" ],
+  "mainEntityOfPage" : "http:\/\/christophermaier.name\/2010\/09\/01\/host-only-networking-with-virtualbox\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "http:\/\/christophermaier.name",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "http:\/\/christophermaier.name",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Host-Only Networking with VirtualBox" />
+<meta property="og:description" content="I&#39;ve been playing around with VirtualBox lately, and it&#39;s pretty nifty. Initially I just used it to set up an Ubuntu machine so I could easily run GnuCash on my MacBook, but lately I&#39;ve decided to start using it at work, too. I&#39;ve got lots of plans: figure out how to use Chef, set up my own Hudson server, get a MongoDB cluster running, etc. I&#39;d like all of these machines to be able to access the internet for downloading packages and the like, and I also want to be able to access them easily from my host machine.">
+<meta property="og:url" content="http://christophermaier.name/2010/09/01/host-only-networking-with-virtualbox/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Christopher Maier&#39;s Technical Blog" />
+
+  <meta name="twitter:title" content="Host-Only Networking with VirtualBox" />
+  <meta name="twitter:description" content="I&#39;ve been playing around with VirtualBox lately, and it&#39;s pretty nifty. Initially I just used it to set up an Ubuntu machine so I could easily run GnuCash on my MacBook, but lately I&#39;ve decided to …">
+  <meta name="twitter:card" content="summary" />
+  <meta name="generator" content="Hugo 0.60.0" />
+  <link rel="alternate" href="http://christophermaier.name/index.xml" type="application/rss+xml" title="Christopher Maier&#39;s Technical Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="http://christophermaier.name/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://christophermaier.name/css/syntax.css" /><link rel="stylesheet" href="http://christophermaier.name/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-18090378-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://christophermaier.name">Christopher Maier&#39;s Technical Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Posts" href="/posts/">Posts</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="posts-heading">
+              
+                <h1>Host-Only Networking with VirtualBox</h1>
+              
+              
+                <hr class="small">
+              
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>I've been playing around with <a href="http://www.virtualbox.org">VirtualBox</a> lately, and it's pretty
+nifty.  Initially I just used it to set up an Ubuntu machine so I
+could easily run <a href="http://www.gnucash.org">GnuCash</a> on my MacBook, but lately I've decided to
+start using it at work, too.  I've got lots of plans: figure out how
+to use <a href="http://wiki.opscode.com/display/chef/Home">Chef</a>, set up my own <a href="http://hudson-ci.org/">Hudson</a> server, get a <a href="http://www.mongodb.org">MongoDB</a>
+cluster running, etc.  I'd like all of these machines to be able to
+access the internet for downloading packages and the like, and I also
+want to be able to access them easily from my host machine.  I <em>don't</em>
+want these servers to be accessible from anywhere else on the network,
+however; these are just for me to experiment with for the time being.
+After banging my head on this for a little while, I think I've finally
+hit upon a (the?) solution.</p>
+<p>Just for completeness&rsquo; sake, my host is Mac OS X and my guests are all
+Ubuntu boxes, so any system-specific instructions here are going to
+have a UNIX orientation.  You have been warned.</p>
+<h2 id="step-1-access-the-internet-from-the-guest">Step 1: Access the Internet from the Guest</h2>
+<p>Set up one of your guest machine's networking adapters to NAT.  This
+is really easy, since it's the default.</p>
+<p><img src="./nat-adapter.png" alt="Adding a NAT Adapter"></p>
+<p>This will allow the guest system to access the broader internet
+through your host's connection.  You'll be able to download packages,
+check email; whatever.  Nobody outside sees anything of your guest
+system; as far as they're concerned, it doesn't exist.  However, you
+cannot access any guest resources from your host machine, nor can any
+guest machines access each other.  Yet.</p>
+<h2 id="step-2-access-the-guest-from-the-host-and-other-guests">Step 2: Access the Guest from the Host (and Other Guests)</h2>
+<p>We'll need to add another network adapter to your guest machine, but
+this time, it'll be a <em>Host-Only Adapter</em>.  By using this type of
+adapter, you'll be able to access a private, virtual network
+consisting solely of your host and any guests.  Any of the member
+machines can access each other, but nothing outside of this
+self-contained &ldquo;network in a box&rdquo; can get in.</p>
+<p><img src="./host-only-adapter.png" alt="Adding a Host-Only Adapter"></p>
+<p>VirtualBox can create several of these virtual host-only networks
+(it's what the &ldquo;Name&rdquo; field refers to in the Network Adapter Setup
+screen above).  You can configure these in the VirtualBox Preferences;
+there should be one already created for you called <em>vboxnet0 network</em>.</p>
+<p><img src="./network-preferences.png" alt="VirtualBox Network Preferences"></p>
+<p>Click on the &ldquo;Edit&rdquo; button for your Host-only network; you'll see a
+dialog like this:</p>
+<p><img src="./vboxnet0-adapter.png" alt="vboxnet0 Adapter"></p>
+<p>Take note of the adapter's IP address (<code>192.168.56.1</code> here); that's
+the address at which your guests can access the host.</p>
+<p><img src="./vboxnet0-dhcp.png" alt="vboxnet0 DHCP"></p>
+<p>By default, there's a DHCP server set up on the network.  Since we're
+going to be assigning static IP addresses, we don't really need this,
+so you can uncheck the &ldquo;Enable Server&rdquo; box on the DHCP configuration
+panel.</p>
+<h2 id="step-3-configure-guests">Step 3: Configure Guests</h2>
+<p>We need each of the guests to have a static IP address on the
+host-only network.  Log in to your Ubuntu guest and issue the
+following command:</p>
+<pre><code>ifconfig eth1 192.168.56.101 netmask 255.255.255.0 up
+</code></pre>
+<p>(Use whatever IP on your host-only network you like, of course.)  This
+binds a network interface to one of the IP addresses on your host-only
+network (eth0 was bound to the NAT adapter).  Now you should be able
+to SSH into your guest from your host (for example) using this IP
+address.</p>
+<p>This is just temporary, however; once you reboot, this configuration
+will disappear.  To make it permanent, add this to your
+<code>/etc/network/interfaces</code> file (as <code>root</code>):</p>
+<pre><code># The host-only network interface
+auto eth1
+iface eth1 inet static
+address 192.168.56.101
+netmask 255.255.255.0
+network 192.168.56.0
+broadcast 192.168.56.255
+</code></pre>
+<p>Reboot, and this interface should now show up when you type <code>ifconfig</code>.</p>
+<h2 id="step-4-make-networking-easier-with-etchosts">Step 4: Make Networking Easier with <code>/etc/hosts</code></h2>
+<p>Remembering IP addresses is a pain; we'd much rather use machine
+names.  Fortunately, we don't need to bother with a DNS server, since
+<code>/etc/hosts</code> makes this trivial.  Just edit the file (as <code>root</code>)
+adding lines like the following:</p>
+<pre><code>192.168.56.101    myserver1
+192.168.56.102    myserver2
+</code></pre>
+<p>&hellip; and so on.  You can do this on the host as well as on the guests.
+This makes it really simple to access any machine on the host-only
+network.  Now you can just do something like <code>ssh myserver1</code> instead
+of <code>ssh 192.168.56.101</code>.</p>
+<p>And that ought to do it.</p>
+
+
+        
+
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://christophermaier.name/2010/08/23/patches-accepted/" data-toggle="tooltip" data-placement="top" title="Patches Accepted!">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="http://christophermaier.name/2010/09/24/my-iphone-plays-mp3s-again/" data-toggle="tooltip" data-placement="top" title="My iPhone Plays MP3s Again">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2011
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://christophermaier.name">Christopher Maier&#39;s Technical Blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.60.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="http://christophermaier.name/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://christophermaier.name/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+

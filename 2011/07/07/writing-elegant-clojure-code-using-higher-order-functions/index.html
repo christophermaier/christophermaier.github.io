@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Writing Elegant Clojure Code Using Higher-Order Functions - Christopher Maier&#39;s Technical Blog</title>
+  <meta name="description" content="Back when I first started writing Clojure code, I heard lots about the use of higher-order functions (also known as HOFs). Since functions are first-class language members in Clojure, you can do things like pass them as arguments or return them from function calls. Any function that accepts or produces another function in this way is a higher-order function. This allows you to write some very powerful and consise code, because you can capture the general form of a computation, while allowing its specific behavior to be determined at runtime by the user."><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Christopher Maier\x27s Technical Blog",
+    
+    "url": "http:\/\/christophermaier.name"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "http:\/\/christophermaier.name"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http:\/\/christophermaier.name",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "http:\/\/christophermaier.name\/2011\/07\/07\/writing-elegant-clojure-code-using-higher-order-functions\/",
+          "name": "Writing elegant clojure code using higher order functions"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : ""
+  },
+  "headline": "Writing Elegant Clojure Code Using Higher-Order Functions",
+  "description" : "Back when I first started writing Clojure code, I heard lots about the use of higher-order functions (also known as HOFs). Since functions are first-class language members in Clojure, you can do things like pass them as arguments or return them from function calls. Any function that accepts or produces another function in this way is a higher-order function. This allows you to write some very powerful and consise code, because you can capture the general form of a computation, while allowing its specific behavior to be determined at runtime by the user.",
+  "inLanguage" : "en",
+  "wordCount":  1525 ,
+  "datePublished" : "2011-07-07T00:00:00",
+  "dateModified" : "2011-07-07T00:00:00",
+  "image" : "http:\/\/christophermaier.name",
+  "keywords" : [ "" ],
+  "mainEntityOfPage" : "http:\/\/christophermaier.name\/2011\/07\/07\/writing-elegant-clojure-code-using-higher-order-functions\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "http:\/\/christophermaier.name",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "http:\/\/christophermaier.name",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Writing Elegant Clojure Code Using Higher-Order Functions" />
+<meta property="og:description" content="Back when I first started writing Clojure code, I heard lots about the use of higher-order functions (also known as HOFs). Since functions are first-class language members in Clojure, you can do things like pass them as arguments or return them from function calls. Any function that accepts or produces another function in this way is a higher-order function. This allows you to write some very powerful and consise code, because you can capture the general form of a computation, while allowing its specific behavior to be determined at runtime by the user.">
+<meta property="og:url" content="http://christophermaier.name/2011/07/07/writing-elegant-clojure-code-using-higher-order-functions/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Christopher Maier&#39;s Technical Blog" />
+
+  <meta name="twitter:title" content="Writing Elegant Clojure Code Using Higher-Order Functions" />
+  <meta name="twitter:description" content="Back when I first started writing Clojure code, I heard lots about the use of higher-order functions (also known as HOFs). Since functions are first-class language members in Clojure, you can do …">
+  <meta name="twitter:card" content="summary" />
+  <meta name="generator" content="Hugo 0.60.0" />
+  <link rel="alternate" href="http://christophermaier.name/index.xml" type="application/rss+xml" title="Christopher Maier&#39;s Technical Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="http://christophermaier.name/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://christophermaier.name/css/syntax.css" /><link rel="stylesheet" href="http://christophermaier.name/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-18090378-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://christophermaier.name">Christopher Maier&#39;s Technical Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Posts" href="/posts/">Posts</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="posts-heading">
+              
+                <h1>Writing Elegant Clojure Code Using Higher-Order Functions</h1>
+              
+              
+                <hr class="small">
+              
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>Back when I first started writing <a href="http://www.clojure.org">Clojure</a> code, I heard
+lots about the use of <a href="http://en.wikipedia.org/wiki/Higher-order_function"><em>higher-order functions</em></a> (also known as
+<em>HOFs</em>).  Since functions are first-class language members in Clojure,
+you can do things like pass them as arguments or return them from
+function calls.  Any function that accepts or produces another
+function in this way is a higher-order function.  This allows you to
+write some very powerful and consise code, because you can capture the
+general <em>form</em> of a computation, while allowing its specific
+<em>behavior</em> to be determined at runtime by the user.  You basically say
+to the function caller &ldquo;I'm going to give you <em>X</em>, but I'll make it
+however you tell me to&rdquo;.</p>
+<p>So I knew about all this, and could see how powerful a technique it
+could be, but I didn't fully <em>grok</em> the whole concept yet.  Coming
+from a mainly Java background at the time, I hadn't had any experience
+with first-class functions, and still approached everything from a
+procedural and object-oriented background.  Using HOFs was a bit of an
+alien concept.</p>
+<p>Clojure is littered with HOFs; if you're new to the language, you've
+already used them, perhaps without realizing it.  The <a href="http://clojure.github.com/clojure/clojure.core-api.html#clojure.core/map"><code>map</code></a>
+function is probably the archetype of a HOF.  It iterates through a
+sequence of items, applying a function to each one in turn, and
+returns a sequence of the results.  It says &ldquo;I'm going to transform
+each element of this sequence, but I'll do it however you tell me to&rdquo;.
+So, you can pass in the <code>inc</code> function to <code>map</code> to increment each
+number in a list, like so:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(map inc [<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">5</span>])
+<span style="color:#75715e">; =&gt; (2 3 4 5 6)</span>
+</code></pre></div><p>You can also use an anonymous function (because hey, it's still a
+function), allowing you to, say, multiply each number in a list by
+five:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(map <span style="color:#f92672">#</span>(* <span style="color:#ae81ff">5</span> %) [<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">5</span>])
+<span style="color:#75715e">; =&gt; (5 10 15 20 25)</span>
+</code></pre></div><p>All well and good, but this is all still pretty basic.  As I said,
+these kinds of functions are all over Clojure, and you quickly figure
+out how to use them, out of necessity if nothing else; it's difficult
+to do <em>anything</em> in Clojure without them!  Soon I realized that it
+wasn't the function-<em>accepting</em> HOFs that I hadn't quite gotten; it
+was the function-<em>generating</em> HOFs that I didn't fully appreciate.
+Clojure has several of these functions, too, and mastering them really
+allows you to create some elegant constructs.  I'll mainly talk about
+<a href="http://clojure.github.com/clojure/clojure.core-api.html#clojure.core/partial"><code>partial</code></a> and <a href="http://clojure.github.com/clojure/clojure.core-api.html#clojure.core/comp"><code>comp</code></a>, but there are also
+<a href="http://clojure.github.com/clojure/clojure.core-api.html#clojure.core/juxt"><code>juxt</code></a> and <a href="http://clojure.github.com/clojure/clojure.core-api.html#clojure.core/complement"><code>complement</code></a>, and I may have
+overlooked others.  And of course, you can always make your own.</p>
+<p>The simplest of Clojure's built-in function generators is probably
+<code>partial</code>, which lets you &ldquo;prime&rdquo; an existing function with some
+number of arguments.  For example, you could make a &ldquo;quintupler&rdquo;
+function like we used above, but using <code>partial</code> like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(<span style="color:#66d9ef">def </span>quintuple (partial * <span style="color:#ae81ff">5</span>))
+(map quintuple [<span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2</span> <span style="color:#ae81ff">3</span> <span style="color:#ae81ff">4</span> <span style="color:#ae81ff">5</span>])
+<span style="color:#75715e">; =&gt; (5 10 15 20 25)</span>
+</code></pre></div><p>This <code>quintuple</code> function is just the standard multplication function
+(<code>*</code>), already primed with a first argument of <code>5</code> (it is exactly
+equivalent to <code>(fn [x] (* 5 x))</code>).  Any other arguments passed into
+<code>quintuple</code> will also be multiplied together, and then multiplied by
+5.  (Though I've broken <code>quintuple</code> out as a separate function here,
+it is more idiomatic to use it directly, like <code>(map (partial * 5) [1 2 3 4 5])</code>.)</p>
+<p>The <code>comp</code> function is a little trickier, but not by much.  Short for
+&ldquo;compose&rdquo;, it carries out the functional composition you learned about
+in high school algebra class (you remember <em>f(g(h(x))</em>, right?).  So
+basically, <code>(comp f g h)</code> creates a function that will apply the
+function <code>h</code> to its arguments, then apply <code>g</code> to the result, then
+apply <code>f</code> to the result of that.  Of course, you can supply as many
+functions as you like.  In this way, it's similar to (but <em>not</em> the
+same as!) Clojure's threading macros (<code>-&gt;</code> and <code>-&gt;&gt;</code>).</p>
+<p>Actually, this whole post is basically an excuse to share the fun
+trick I recently discovered.  Say you need to condense a sequence of
+pairs into a map.  No problem, right?  We'll just use <code>into</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(<span style="color:#66d9ef">def </span>pairs [[<span style="color:#e6db74">:one</span> <span style="color:#ae81ff">1</span>] [<span style="color:#e6db74">:two</span> <span style="color:#ae81ff">2</span>] [<span style="color:#e6db74">:three</span> <span style="color:#ae81ff">3</span>]])
+(into {} pairs)
+<span style="color:#75715e">; =&gt; {:one 1, :two 2, :three 3}</span>
+</code></pre></div><p>Now for a wrinkle: what if a key repeats?</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(<span style="color:#66d9ef">def </span>pairs [[<span style="color:#e6db74">:one</span> <span style="color:#ae81ff">1</span>] [<span style="color:#e6db74">:two</span> <span style="color:#ae81ff">2</span>] [<span style="color:#e6db74">:three</span> <span style="color:#ae81ff">3</span>]
+            [<span style="color:#e6db74">:rest</span> <span style="color:#ae81ff">4</span>] [<span style="color:#e6db74">:rest</span> <span style="color:#ae81ff">5</span>] [<span style="color:#e6db74">:rest</span> <span style="color:#ae81ff">6</span>]])
+(into {} pairs)
+<span style="color:#75715e">; =&gt; {:one 1, :two 2, :three 3, :rest 6}</span>
+</code></pre></div><p>That's no good; each successive pair with a duplicated key will
+overwrite the previous values.  What you really want is to create a
+<em>sequence</em> if there are multiple values, but not if there's only one.
+HOFs to the rescue!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(apply merge-with
+       (comp vec flatten vector)
+       (map (partial apply hash-map)
+            pairs))
+<span style="color:#75715e">; =&gt; {:rest [4 5 6], :three 3, :two 2, :one 1}</span>
+</code></pre></div><p>That did it!  The magic happens with <code>(comp vec flatten vector)</code>.
+This generates the function that <code>merge-with</code> will use to combine the
+pairs together (once we turn them into maps, that is).  If a key is
+already present, the function gets called with both the existing value
+and the value to be added.  This can be a bit tricky to grasp at
+first, so I'll walk through what's happening step by step.</p>
+<p>Keep in mind that our merge function, <code>(comp vec flatten vector)</code> is
+only called when there is already a value for a given key.  If it's
+the first time we're merging a particular key, there will be one
+value, but for all subsequent times, there will be a vector of values.
+We thus have two cases to examine.  Since the <code>comp</code> is just composing
+<code>vec</code>, <code>flatten</code>, and <code>vector</code>, I'll split out each operation to show
+what happens.</p>
+<p>First, we'll look at what happens the first time we merge a value.
+We'll call the pre-existing value <code>:A</code> and the incoming (to-be-merged)
+value <code>:B</code>; in the end, we'll expect to see <code>[:A :B]</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(vector <span style="color:#e6db74">:A</span> <span style="color:#e6db74">:B</span>)
+<span style="color:#75715e">; =&gt; [:A :B]</span>
+(<span style="color:#a6e22e">flatten</span> [<span style="color:#e6db74">:A</span> <span style="color:#e6db74">:B</span>])
+<span style="color:#75715e">; =&gt; (:A :B)</span>
+(<span style="color:#a6e22e">vec</span> <span style="color:#f92672">&#39;</span>(<span style="color:#e6db74">:A</span> <span style="color:#e6db74">:B</span>))
+<span style="color:#75715e">; =&gt; [:A :B]</span>
+</code></pre></div><p>Remember, <code>comp</code> passes the result of one computation as the input to
+the next in the chain.  In this particular scenario, the calls to
+<code>flatten</code> and <code>vec</code> seem unnecessary; after all, we could have stopped
+after <code>vector</code> and been done with it.  If you're only ever going to
+merge two values, then yes, you could have just used <code>vector</code>&hellip;  but
+that's not very interesting, is it?  Let's continue on with our
+example and merge in an additional value, <code>:C</code>.  This time we're
+starting with the vector <code>[:A :B]</code>, which will illustrate the second
+case of behavior.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(vector [<span style="color:#e6db74">:A</span> <span style="color:#e6db74">:B</span>] <span style="color:#e6db74">:C</span>)
+<span style="color:#75715e">; =&gt; [[:A :B] :C]</span>
+(<span style="color:#a6e22e">flatten</span> [[<span style="color:#e6db74">:A</span> <span style="color:#e6db74">:B</span>] <span style="color:#e6db74">:C</span>])
+<span style="color:#75715e">; =&gt; (:A :B :C)</span>
+(<span style="color:#a6e22e">vec</span> <span style="color:#f92672">&#39;</span>(<span style="color:#e6db74">:A</span> <span style="color:#e6db74">:B</span> <span style="color:#e6db74">:C</span>))
+<span style="color:#75715e">; =&gt; [:A :B :C]</span>
+</code></pre></div><p>Now the need for <code>flatten</code> is apparent; if we didn't use it, we'd end
+up with an increasingly nested set of vectors within vectors within
+vectors.  By flattening, we eliminate the nesting before it has a
+chance to start.  But <code>flatten</code> gives us a sequence, and we wanted to
+get a vector back.  No problem; <code>vec</code> to the rescue!  (Strictly
+speaking, everything could still work fine without <code>vec</code>, so long as
+you don't mind a mixture of vectors and sequences as values in your
+data structure).</p>
+<p>Now we can see that in both cases, we end up with a vector of all the
+values for a given key being plugged into our growing map.  Of course,
+the astute reader will recognize the (potential) bug lurking here:
+what if one of your values is <em>already a vector?</em> If that's the case,
+this particular implementation will not be very kind to you, since it
+unmercilessly flattens everything in sight.  You can get around this,
+though (and I leave that as an exercise for the reader); in this
+article I'm focusing on the uses of higher order functions&hellip; that,
+and the software I wrote this function for never has to deal with
+vector values, so there :P</p>
+<p>So that covers the <code>comp</code>-generated HOF, but there's another HOF
+lurking in there, too: <code>(partial apply hash-map)</code>.  All that does is
+convert the vector pairs into maps for feeding into <code>merge-with</code> (we
+have to use <code>apply</code>, because <code>hash-map</code> is not expecting a sequence as
+input).  I told you: HOFs are <em>everywhere</em> in Clojure.</p>
+<p>Now, contrast this to how I would have written this function when I
+was young and foolish, pre-HOF:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(apply merge-with
+       (<span style="color:#66d9ef">fn </span>[vals v]
+         (<span style="color:#66d9ef">if </span>(vector? vals)
+           (conj vals v)
+           [vals v]))
+       (for [[k v] pairs]
+        {k v}))
+</code></pre></div><p>Quite a bit more verbose and just <em>uglier</em>.  Also note that the <code>(comp vec flatten vector)</code> and <code>(partial apply hash-map)</code> functions are more
+general and re-usable than their wordier counterparts.</p>
+<p>This just shows that you can get the job done in Clojure in any number
+of ways, but to get really succinct and elegant code, it pays to get
+familiar with Clojure's function-generating functions.</p>
+<p>Exploration of <code>juxt</code> (quite handy for destructuring <code>let</code> bindings)
+and <code>complement</code> (great for use with <code>filter</code>, <code>remove</code>, and other
+predicate-consuming functions) are left as exercises for the reader.</p>
+
+
+        
+
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://christophermaier.name/2011/05/22/githubs-new-fork-and-edit-feature-is-awesome/" data-toggle="tooltip" data-placement="top" title="Github&#39;s new &#34;Fork and Edit&#34; Feature is Awesome">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="http://christophermaier.name/2011/07/17/creating-a-query-dsl-using-clojure-and-mongodb/" data-toggle="tooltip" data-placement="top" title="Creating a Query DSL using Clojure and MongoDB">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2011
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://christophermaier.name">Christopher Maier&#39;s Technical Blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.60.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="http://christophermaier.name/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://christophermaier.name/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+

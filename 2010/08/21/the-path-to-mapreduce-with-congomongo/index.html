@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>The Path to MapReduce with Congomongo - Christopher Maier&#39;s Technical Blog</title>
+  <meta name="description" content="I&#39;ve recently started a Clojure / MongoDB project at work to help us with our proteogenomic annotation work. Naturally, I&#39;m using Congomongo to interact with the database. It&#39;s a great wrapper for the MongoDB Java driver, written in a very nice functional style.
+Lately I&#39;ve been looking into the map-reduce capabilities of MongoDB and have been trying to figure out how to make it work from Clojure. Looking at the Congomongo API, I came across the server-eval function, which looked like a promising place to start."><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Christopher Maier\x27s Technical Blog",
+    
+    "url": "http:\/\/christophermaier.name"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "http:\/\/christophermaier.name"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http:\/\/christophermaier.name",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "http:\/\/christophermaier.name\/2010\/08\/21\/the-path-to-mapreduce-with-congomongo\/",
+          "name": "The path to map reduce with congomongo"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : ""
+  },
+  "headline": "The Path to MapReduce with Congomongo",
+  "description" : "I\x27ve recently started a Clojure \/ MongoDB project at work to help us with our proteogenomic annotation work. Naturally, I\x27m using Congomongo to interact with the database. It\x27s a great wrapper for the MongoDB Java driver, written in a very nice functional style.\nLately I\x27ve been looking into the map-reduce capabilities of MongoDB and have been trying to figure out how to make it work from Clojure. Looking at the Congomongo API, I came across the server-eval function, which looked like a promising place to start.",
+  "inLanguage" : "en",
+  "wordCount":  386 ,
+  "datePublished" : "2010-08-21T00:00:00",
+  "dateModified" : "2010-08-21T00:00:00",
+  "image" : "http:\/\/christophermaier.name",
+  "keywords" : [ "" ],
+  "mainEntityOfPage" : "http:\/\/christophermaier.name\/2010\/08\/21\/the-path-to-mapreduce-with-congomongo\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "http:\/\/christophermaier.name",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "http:\/\/christophermaier.name",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="The Path to MapReduce with Congomongo" />
+<meta property="og:description" content="I&#39;ve recently started a Clojure / MongoDB project at work to help us with our proteogenomic annotation work. Naturally, I&#39;m using Congomongo to interact with the database. It&#39;s a great wrapper for the MongoDB Java driver, written in a very nice functional style.
+Lately I&#39;ve been looking into the map-reduce capabilities of MongoDB and have been trying to figure out how to make it work from Clojure. Looking at the Congomongo API, I came across the server-eval function, which looked like a promising place to start.">
+<meta property="og:url" content="http://christophermaier.name/2010/08/21/the-path-to-mapreduce-with-congomongo/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Christopher Maier&#39;s Technical Blog" />
+
+  <meta name="twitter:title" content="The Path to MapReduce with Congomongo" />
+  <meta name="twitter:description" content="I&#39;ve recently started a Clojure / MongoDB project at work to help us with our proteogenomic annotation work. Naturally, I&#39;m using Congomongo to interact with the database. It&#39;s a great wrapper for the …">
+  <meta name="twitter:card" content="summary" />
+  <meta name="generator" content="Hugo 0.60.0" />
+  <link rel="alternate" href="http://christophermaier.name/index.xml" type="application/rss+xml" title="Christopher Maier&#39;s Technical Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="http://christophermaier.name/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://christophermaier.name/css/syntax.css" /><link rel="stylesheet" href="http://christophermaier.name/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-18090378-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://christophermaier.name">Christopher Maier&#39;s Technical Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Posts" href="/posts/">Posts</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="posts-heading">
+              
+                <h1>The Path to MapReduce with Congomongo</h1>
+              
+              
+                <hr class="small">
+              
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>I've recently started a Clojure / <a href="http://www.mongodb.org">MongoDB</a> project at work to help
+us with our proteogenomic annotation work.  Naturally, I'm using
+<a href="http://www.github.com/somnium/congomongo">Congomongo</a> to interact with the database.  It's a great wrapper
+for the <a href="http://github.com/mongodb/mongo-java-driver">MongoDB Java driver</a>, written in a very nice functional
+style.</p>
+<p>Lately I've been looking into the <a href="http://www.mongodb.org/display/DOCS/MapReduce">map-reduce</a> capabilities of
+MongoDB and have been trying to figure out how to make it work from
+Clojure.  Looking at the Congomongo API, I came across the
+<a href="http://github.com/somnium/congomongo/blob/6fc8345a35fa1aa1ba27efa76a4363265b67cad2/src/somnium/congomongo.clj#L316">server-eval</a> function, which looked like a promising place to
+start.</p>
+<p>I decided to kick the tires a bit:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">user&gt; (<span style="color:#a6e22e">use</span> <span style="color:#e6db74">&#39;somnium.congomongo</span>)
+nil
+user&gt; (<span style="color:#a6e22e">server-eval</span> <span style="color:#e6db74">&#34;function(){return 3+3}&#34;</span>)
+<span style="color:#ae81ff">6.0</span>
+</code></pre></div><p>So far, so good.  <code>server-eval</code> takes a string of JavaScript code
+defining a function with no arguments.  This gets sent over to
+MongoDB, where it gets evaluated and run.</p>
+<p>Under the hood, Congomongo is passing off to the MongoDB Java driver's
+<a href="http://github.com/mongodb/mongo-java-driver/blob/r2.0/src/main/com/mongodb/DB.java#L145">com.mongodb.DB.doEval</a> method, which effectively runs this command
+(as typed into the MongoDB JavaScript console):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">$cmd</span>.<span style="color:#a6e22e">findOne</span>({<span style="color:#a6e22e">$eval</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#34;function(){return 3+3}&#34;</span>})
+{ <span style="color:#e6db74">&#34;retval&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">6</span>, <span style="color:#e6db74">&#34;ok&#34;</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span> }
+</code></pre></div><p>It's calling the special <a href="http://www.mongodb.org/display/DOCS/Server-side+Code+Execution">eval</a> command in MongoDB and passing the
+result back.  Check out the <a href="http://www.mongodb.org/display/DOCS/Commands">MongoDB Command Documentation</a> as well
+as the <a href="http://www.mongodb.org/display/DOCS/List+of+Database+Commands">List of Database Commands</a> for more on how this stuff works
+out.</p>
+<p>That's all well and good, but it doesn't actually help for kicking off
+a map-reduce job from Clojure.  As the MongoDB documentation <a href="http://www.mongodb.org/display/DOCS/Server-side+Code+Execution#Server-sideCodeExecution-Using%7B%7Bdb.eval%28%29%7D%7D">says</a>:</p>
+<blockquote>
+<p>Use map/reduce instead of db.eval() for long running jobs. db.eval blocks other operations!</p>
+</blockquote>
+<p>That's a bummer.  The only facility Congomongo currently provides for
+executing code server-side is the aforementioned <code>server-eval</code>
+function, which only uses the MongoDB <code>eval</code> command; <code>mapReduce</code> is a
+separate command.  It's actually pretty straightforward to add support
+for map-reduce in Congomongo, though.  Though we could easily use
+<code>com.mongodb.DB.doEval</code> to perform our map-reduce job, the Java driver
+helpfully provides <a href="http://github.com/mongodb/mongo-java-driver/blob/r2.0/src/main/com/mongodb/DBCollection.java#L613">com.mongodb.DBCollection.mapReduce</a>, which
+provides a little bit of sugar for such things.  Studying the code for
+some other Congomongo functions leads to this solution:</p>
+<p><a href="http://github.com/christophermaier/congomongo/commit/df433fc11ab76c48dcfe8fa77c4bf19227161a92">My Congomongo fork, now with map-reduce!</a></p>
+<p>The nice thing about this function is that it fully exposes all the
+capabilities of the native MongoDB map-reduce framework.  Want to add
+a finalize function?  No problem!  Want sorted or limited query
+results?  Done!  Want results or just the collection?  You got it.
+There's lots of documentation for how it all works; the test cases
+will help, too.</p>
+
+
+        
+
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://christophermaier.name/2010/08/08/easy-clojure-api-search-with-google-chrome/" data-toggle="tooltip" data-placement="top" title="Easy Clojure API Search with Google Chrome">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="http://christophermaier.name/2010/08/23/patches-accepted/" data-toggle="tooltip" data-placement="top" title="Patches Accepted!">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2011
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://christophermaier.name">Christopher Maier&#39;s Technical Blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.60.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="http://christophermaier.name/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://christophermaier.name/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+

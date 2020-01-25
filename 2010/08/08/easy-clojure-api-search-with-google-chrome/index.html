@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Easy Clojure API Search with Google Chrome - Christopher Maier&#39;s Technical Blog</title>
+  <meta name="description" content="Do you need an easy way to search Clojure&lsquo;s API? Do you use Google&#39;s Chrome browser? If so, you&#39;re in luck; it&#39;s incredibly easy to add a custom engine to Chrome to search the API. Here&#39;s how.
+Setting Up a Custom Search Engine First, open your preferences and hit the &ldquo;Manage&rdquo; button down by &ldquo;Default Search&rdquo;.
+That will bring up a Search Engines box. This is how Chrome knows to search, say, Google for whatever you type in the Address Bar (or OmniBox, as it&#39;s also known)."><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Christopher Maier\x27s Technical Blog",
+    
+    "url": "http:\/\/christophermaier.name"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "http:\/\/christophermaier.name"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http:\/\/christophermaier.name",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "http:\/\/christophermaier.name\/2010\/08\/08\/easy-clojure-api-search-with-google-chrome\/",
+          "name": "Easy clojure a p i search with google chrome"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : ""
+  },
+  "headline": "Easy Clojure API Search with Google Chrome",
+  "description" : "Do you need an easy way to search Clojure\x26lsquo;s API? Do you use Google\x27s Chrome browser? If so, you\x27re in luck; it\x27s incredibly easy to add a custom engine to Chrome to search the API. Here\x27s how.\nSetting Up a Custom Search Engine First, open your preferences and hit the \x26ldquo;Manage\x26rdquo; button down by \x26ldquo;Default Search\x26rdquo;.\nThat will bring up a Search Engines box. This is how Chrome knows to search, say, Google for whatever you type in the Address Bar (or OmniBox, as it\x27s also known).",
+  "inLanguage" : "en",
+  "wordCount":  359 ,
+  "datePublished" : "2010-08-08T00:00:00",
+  "dateModified" : "2010-08-08T00:00:00",
+  "image" : "http:\/\/christophermaier.name",
+  "keywords" : [ "" ],
+  "mainEntityOfPage" : "http:\/\/christophermaier.name\/2010\/08\/08\/easy-clojure-api-search-with-google-chrome\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "http:\/\/christophermaier.name",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "http:\/\/christophermaier.name",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Easy Clojure API Search with Google Chrome" />
+<meta property="og:description" content="Do you need an easy way to search Clojure&lsquo;s API? Do you use Google&#39;s Chrome browser? If so, you&#39;re in luck; it&#39;s incredibly easy to add a custom engine to Chrome to search the API. Here&#39;s how.
+Setting Up a Custom Search Engine First, open your preferences and hit the &ldquo;Manage&rdquo; button down by &ldquo;Default Search&rdquo;.
+That will bring up a Search Engines box. This is how Chrome knows to search, say, Google for whatever you type in the Address Bar (or OmniBox, as it&#39;s also known).">
+<meta property="og:url" content="http://christophermaier.name/2010/08/08/easy-clojure-api-search-with-google-chrome/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Christopher Maier&#39;s Technical Blog" />
+
+  <meta name="twitter:title" content="Easy Clojure API Search with Google Chrome" />
+  <meta name="twitter:description" content="Do you need an easy way to search Clojure&lsquo;s API? Do you use Google&#39;s Chrome browser? If so, you&#39;re in luck; it&#39;s incredibly easy to add a custom engine to Chrome to search the API. Here&#39;s how. …">
+  <meta name="twitter:card" content="summary" />
+  <meta name="generator" content="Hugo 0.60.0" />
+  <link rel="alternate" href="http://christophermaier.name/index.xml" type="application/rss+xml" title="Christopher Maier&#39;s Technical Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="http://christophermaier.name/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://christophermaier.name/css/syntax.css" /><link rel="stylesheet" href="http://christophermaier.name/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-18090378-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://christophermaier.name">Christopher Maier&#39;s Technical Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Posts" href="/posts/">Posts</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="posts-heading">
+              
+                <h1>Easy Clojure API Search with Google Chrome</h1>
+              
+              
+                <hr class="small">
+              
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>Do you need an easy way to search <a href="http://www.clojure.org">Clojure</a>&lsquo;s API?  Do you use
+Google's <a href="http://www.google.com/chrome/">Chrome</a> browser?  If so, you're in luck; it's incredibly
+easy to add a custom engine to Chrome to search the API.  Here's how.</p>
+<h2 id="setting-up-a-custom-search-engine">Setting Up a Custom Search Engine</h2>
+<p>First, open your preferences and hit the &ldquo;Manage&rdquo; button down by
+&ldquo;Default Search&rdquo;.</p>
+<p><img src="./chrome-preferences.png" alt="Google Chrome Preferences"></p>
+<p>That will bring up a Search Engines box.  This is how Chrome knows to
+search, say, Google for whatever you type in the Address Bar (or
+<em>OmniBox</em>, as it's also known).</p>
+<p><img src="./chrome-search-engines.png" alt="Google Chrome Search Engines"></p>
+<p>Hit the &ldquo;+&rdquo; button to set up a new search engine.  The resulting
+dialog asks you for a &ldquo;Name&rdquo;, a &ldquo;Keyword&rdquo;, and a &ldquo;URL&rdquo;.  Name and
+Keyword can be whatever you want.  You should probably keep Keyword
+short and pithy, however, as this is what you'll be typing in the
+Address Bar to tell Chrome which Search Engine to use (I chose &ldquo;clj&rdquo;).
+Finally, the URL should be a parameterized version of the site you
+want to search.  For example, when you search Google for &ldquo;cheese&rdquo;, the
+URL you end up at is this:
+<a href="http://www.google.com/search?q=cheese"><a href="http://www.google.com/search?q=cheese">http://www.google.com/search?q=cheese</a></a>.
+To parameterize this for Chrome, just remove the search term and
+replace it with &ldquo;%s&rdquo; (without quotes).  Thus, the Google search URL
+would become <code>http://www.google.com/search?q=%s</code>.  Take a look at the
+other Search Engines you have for more examples.</p>
+<p>The <a href="http://richhickety.github.com/clojure/clojure.core-api.html">Clojure API</a> isn't a search engine (it's just a big HTML page),
+but that doesn't mean we're out of luck.  Documentation entries for
+each function are accessible through HTML anchors; we'll simply
+parameterize the anchors!  Here is the parameterized URL you'll need
+to search the core Clojure API with Chrome:</p>
+<pre><code>http://richhickey.github.com/clojure/clojure.core-api.html#clojure.core/%s
+</code></pre>
+<p><img src="./add-clojure-search-engine.png" alt="Adding a Clojure API Search Engine"></p>
+<p>When your new Search Engine is all set up, hit &ldquo;OK&rdquo;.</p>
+<h2 id="using-a-custom-search-engine">Using a Custom Search Engine</h2>
+<p>Now for the fun.  Go to the Search Bar and type your Search Engine
+Keyword &ldquo;clj&rdquo;, a space, and the Clojure function you need to know
+about.  Once you've hit the space after the keyword, Chrome will
+expand it to the name of your Search Engine, indicating that you're no
+longer using your default Search Engine.  Hit Enter and you're taken
+directly to the API docs for your function.</p>
+<p><img src="./search-clojure-api.png" alt="Search the Clojure API"></p>
+<p>Neat, eh?</p>
+
+
+        
+
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://christophermaier.name/2010/04/27/comparing-settings-from-different-postgresql-databases/" data-toggle="tooltip" data-placement="top" title="Comparing Settings From Different PostgreSQL Databases">&larr; Previous Post</a>
+            </li>
+          
+          
+            <li class="next">
+              <a href="http://christophermaier.name/2010/08/21/the-path-to-mapreduce-with-congomongo/" data-toggle="tooltip" data-placement="top" title="The Path to MapReduce with Congomongo">Next Post &rarr;</a>
+            </li>
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2011
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://christophermaier.name">Christopher Maier&#39;s Technical Blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.60.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="http://christophermaier.name/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://christophermaier.name/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+

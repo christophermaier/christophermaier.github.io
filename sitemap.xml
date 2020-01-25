@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://christophermaier.name/</loc>
+    <lastmod>2011-07-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://christophermaier.name/2011/07/17/creating-a-query-dsl-using-clojure-and-mongodb/</loc>
+    <lastmod>2011-07-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://christophermaier.name/posts/</loc>
+    <lastmod>2011-07-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://christophermaier.name/2011/07/07/writing-elegant-clojure-code-using-higher-order-functions/</loc>
+    <lastmod>2011-07-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://christophermaier.name/2011/05/22/githubs-new-fork-and-edit-feature-is-awesome/</loc>
+    <lastmod>2011-05-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://christophermaier.name/2011/05/22/the-importance-of-mongodb-key-names/</loc>
+    <lastmod>2011-05-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://christophermaier.name/2011/04/30/not-so-private-clojure-functions/</loc>
+    <lastmod>2011-04-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://christophermaier.name/2011/03/24/using-yui_config-to-set-up-custom-yui-modules/</loc>
+    <lastmod>2011-03-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://christophermaier.name/2010/12/21/mongodb-query-tricks-or-why-dont-mongodb-doesnt-not-have-and/</loc>
+    <lastmod>2010-12-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://christophermaier.name/2010/10/17/using-mapreduce-in-congomongo-now/</loc>
+    <lastmod>2010-10-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://christophermaier.name/2010/10/12/using-idiomatic-clojure-part-1-comp/</loc>
+    <lastmod>2010-10-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://christophermaier.name/2010/09/24/my-iphone-plays-mp3s-again/</loc>
+    <lastmod>2010-09-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://christophermaier.name/2010/09/01/host-only-networking-with-virtualbox/</loc>
+    <lastmod>2010-09-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://christophermaier.name/2010/08/23/patches-accepted/</loc>
+    <lastmod>2010-08-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://christophermaier.name/2010/08/21/the-path-to-mapreduce-with-congomongo/</loc>
+    <lastmod>2010-08-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://christophermaier.name/2010/08/08/easy-clojure-api-search-with-google-chrome/</loc>
+    <lastmod>2010-08-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://christophermaier.name/2010/04/27/comparing-settings-from-different-postgresql-databases/</loc>
+    <lastmod>2010-04-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://christophermaier.name/2010/04/25/blogging-on-github-with-jekyll/</loc>
+    <lastmod>2010-04-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://christophermaier.name/about/</loc>
+  </url>
+  
+  <url>
+    <loc>http://christophermaier.name/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>http://christophermaier.name/tags/</loc>
+  </url>
+  
+</urlset>

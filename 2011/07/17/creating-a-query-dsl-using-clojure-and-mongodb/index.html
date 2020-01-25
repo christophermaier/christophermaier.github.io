@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+  <head>
+    
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Creating a Query DSL using Clojure and MongoDB - Christopher Maier&#39;s Technical Blog</title>
+  <meta name="description" content="One of the nice things about MongoDB (particularly when using it in Clojure via the Congomongo library) is that its map-based query language is so amenable to the creation of a domain-specific language, or DSL. Creating and manipulating maps is like breathing in Clojure, so it is trivial to decompose the different query requirements of your application into a small collection of simple functions that can be used to create a rather fluent domain-specific language."><script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "name": "Christopher Maier\x27s Technical Blog",
+    
+    "url": "http:\/\/christophermaier.name"
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "name": "",
+  "url": "http:\/\/christophermaier.name"
+  
+  
+  
+  
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "http:\/\/christophermaier.name",
+          "name": "home"
+        }
+    },{
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@id": "http:\/\/christophermaier.name\/2011\/07\/17\/creating-a-query-dsl-using-clojure-and-mongodb\/",
+          "name": "Creating a query d s l using clojure and mongo d b"
+        }
+    }]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "author": {
+    "name" : ""
+  },
+  "headline": "Creating a Query DSL using Clojure and MongoDB",
+  "description" : "One of the nice things about MongoDB (particularly when using it in Clojure via the Congomongo library) is that its map-based query language is so amenable to the creation of a domain-specific language, or DSL. Creating and manipulating maps is like breathing in Clojure, so it is trivial to decompose the different query requirements of your application into a small collection of simple functions that can be used to create a rather fluent domain-specific language.",
+  "inLanguage" : "en",
+  "wordCount":  953 ,
+  "datePublished" : "2011-07-17T00:00:00",
+  "dateModified" : "2011-07-17T00:00:00",
+  "image" : "http:\/\/christophermaier.name",
+  "keywords" : [ "" ],
+  "mainEntityOfPage" : "http:\/\/christophermaier.name\/2011\/07\/17\/creating-a-query-dsl-using-clojure-and-mongodb\/",
+  "publisher" : {
+    "@type": "Organization",
+    "name" : "http:\/\/christophermaier.name",
+    "logo" : {
+        "@type" : "ImageObject",
+        "url" : "http:\/\/christophermaier.name",
+        "height" :  60 ,
+        "width" :  60
+    }
+  }
+}
+</script>
+
+<meta property="og:title" content="Creating a Query DSL using Clojure and MongoDB" />
+<meta property="og:description" content="One of the nice things about MongoDB (particularly when using it in Clojure via the Congomongo library) is that its map-based query language is so amenable to the creation of a domain-specific language, or DSL. Creating and manipulating maps is like breathing in Clojure, so it is trivial to decompose the different query requirements of your application into a small collection of simple functions that can be used to create a rather fluent domain-specific language.">
+<meta property="og:url" content="http://christophermaier.name/2011/07/17/creating-a-query-dsl-using-clojure-and-mongodb/" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Christopher Maier&#39;s Technical Blog" />
+
+  <meta name="twitter:title" content="Creating a Query DSL using Clojure and MongoDB" />
+  <meta name="twitter:description" content="One of the nice things about MongoDB (particularly when using it in Clojure via the Congomongo library) is that its map-based query language is so amenable to the creation of a domain-specific …">
+  <meta name="twitter:card" content="summary" />
+  <meta name="generator" content="Hugo 0.60.0" />
+  <link rel="alternate" href="http://christophermaier.name/index.xml" type="application/rss+xml" title="Christopher Maier&#39;s Technical Blog"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="http://christophermaier.name/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="http://christophermaier.name/css/syntax.css" /><link rel="stylesheet" href="http://christophermaier.name/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-18090378-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="http://christophermaier.name">Christopher Maier&#39;s Technical Blog</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        
+          
+            <li>
+              <a title="Posts" href="/posts/">Posts</a>
+            </li>
+          
+        
+
+        
+
+        
+      </ul>
+    </div>
+
+    
+
+  </div>
+</nav>
+
+
+
+
+    
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+  
+  
+  
+
+
+
+
+
+
+  
+
+  <header class="header-section ">
+    
+    <div class="intro-header no-img">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="posts-heading">
+              
+                <h1>Creating a Query DSL using Clojure and MongoDB</h1>
+              
+              
+                <hr class="small">
+              
+              
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <article role="main" class="blog-post">
+        <p>One of the nice things about <a href="http://www.mongodb.org">MongoDB</a> (particularly when using it
+in Clojure via the <a href="https://github.com/aboekhoff/congomongo">Congomongo</a> library) is that its map-based query
+language is so amenable to the creation of a domain-specific language,
+or <a href="http://en.wikipedia.org/wiki/Domain-specific_language">DSL</a>.  Creating and manipulating maps is like breathing in
+Clojure, so it is trivial to decompose the different query
+requirements of your application into a small collection of simple
+functions that can be used to create a rather fluent domain-specific
+language.  The data-structure-based query language of MongoDB makes
+this possible (or at least easier; it would be much more difficult to
+do in a string-based language like SQL).</p>
+<p>Not only does creating a DSL make querying easy (particularly with
+complex conditions), but it also insulates your application from
+change in a few important ways.  Especially in the initial,
+exploratory stages of a project, it is common to change and evolve a
+data schema, and NoSQL environments make this very simple.  Using a
+DSL will shield your code from these changes; you only need to change
+the DSL &ldquo;atoms&rdquo; that the schema change affects.</p>
+<p>Another benefit is that you can more easily change out your underlying
+database when and if the need arises.  With SQL databases, this is not
+as big of a problem.  SQL is a standard, and we have things like JDBC
+to provide (more or less) equivalent interaction with SQL databases
+(yes, reality is more complicated, but we're comparing to swapping out
+one NoSQL database for another).  There is no corresponding &ldquo;NoSQL
+standard&rdquo;, but even if there were, there are so many different kinds
+of NoSQL databases (document, graph, key-value, column store, etc.)
+that there probably <em>can't</em> be any sort of meaningful general
+abstraction like JDBC that covers them all.  However, when you create
+a query DSL, you don't need to create a completely general abstraction
+over your underlying database; you just need one that works for your
+project.</p>
+<p>I recently implemented a simple DSL for a project at work that we use
+for querying complex proteomics and genomics data.  I'll illustrate a
+small bit of the DSL here to describe the general approach and show
+some of the benefits.</p>
+<h1 id="background">Background</h1>
+<p>In a nutshell, we're querying to find certain features within the
+human genome.  The raw data are called &ldquo;peptide / spectrum matches&rdquo;,
+or a &ldquo;PSMs&rdquo;.  They have sequences, scores, and genomic coordinates,
+among other things, and we query to find PSMs based on various
+combinations of these criteria.  We store the data in MongoDB, with
+one document per PSM, and query using Congomongo.</p>
+<p>If you want to find all PSMs that have a particular peptide sequence,
+you'd have a query map like this;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">{<span style="color:#e6db74">:peptide.sequence</span> <span style="color:#e6db74">&#34;GLYQRPHDSTRFK&#34;</span>}
+</code></pre></div><p>If you want to further restrict that to only results that have an
+expectation value of no greater than 0.01, you'd use this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">{<span style="color:#e6db74">:peptide.sequence</span> <span style="color:#e6db74">&#34;GLYQRPHDSTRFK&#34;</span>
+ <span style="color:#e6db74">:scores.e-value</span> {<span style="color:#e6db74">:$lte</span> <span style="color:#ae81ff">0.01</span>}}
+</code></pre></div><p>Further restricting results to lying within a region of a chromosome
+would be done like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">{<span style="color:#e6db74">:peptide.sequence</span> <span style="color:#e6db74">&#34;GLYQRPHDSTRFK&#34;</span>
+ <span style="color:#e6db74">:scores.e-value</span> {<span style="color:#e6db74">:$lte</span> <span style="color:#ae81ff">0.01</span>}
+ <span style="color:#e6db74">:location.chromosome</span> <span style="color:#e6db74">&#34;X&#34;</span>
+ <span style="color:#e6db74">:location.strand</span> <span style="color:#e6db74">&#34;+&#34;</span>
+ <span style="color:#e6db74">:location.start</span> {<span style="color:#e6db74">:$gte</span> <span style="color:#ae81ff">12345</span>}
+ <span style="color:#e6db74">:location.stop</span> {<span style="color:#e6db74">:$lte</span> <span style="color:#ae81ff">34567</span>}}
+</code></pre></div><h2 id="creating-the-dsl">Creating the DSL</h2>
+<p>In reality, there are many more criteria, but by this point a pattern
+suggests itself.  Each individual criterion will be a map, while each
+query will be a simple merging of these maps.  Let's start with the
+<code>query</code> function first, which we'll use to generate the final query
+map (not actually perform the query).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(<span style="color:#66d9ef">defn </span>query [<span style="color:#f92672">&amp;</span> criteria]
+  (apply merge criteria))
+</code></pre></div><p>That's it.  Now for the rest of the criteria:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(<span style="color:#66d9ef">defn </span>matches-peptide [peptide]
+  {<span style="color:#e6db74">:peptide.sequence</span> peptide})
+
+(<span style="color:#66d9ef">defn </span>with-e-value-cutoff [cutoff]
+  {<span style="color:#e6db74">:scores.e-value</span> {<span style="color:#e6db74">:$lte</span> cutoff}})
+
+(<span style="color:#66d9ef">defn </span>in-region [{<span style="color:#e6db74">:keys</span> [chromosome strand start stop]}]
+  {<span style="color:#e6db74">:location.chromosome</span> chromosome
+   <span style="color:#e6db74">:location.strand</span> strand
+   <span style="color:#e6db74">:location.start</span> {<span style="color:#e6db74">:$gte</span> start}
+   <span style="color:#e6db74">:location.stop</span> {<span style="color:#e6db74">:$lte</span> stop}})
+</code></pre></div><p>All very straightforward.  Now, when we want to create a final query,
+we write something like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(<span style="color:#a6e22e">query</span> (<span style="color:#a6e22e">matching-peptide</span> <span style="color:#e6db74">&#34;GLYQRPHDSTRFK&#34;</span>)
+       (<span style="color:#a6e22e">with-e-value-cutoff</span> <span style="color:#ae81ff">0.001</span>)
+       (<span style="color:#a6e22e">in-region</span> {<span style="color:#e6db74">:chromosome</span> <span style="color:#e6db74">&#34;X&#34;</span>
+                   <span style="color:#e6db74">:strand</span> <span style="color:#e6db74">&#34;+&#34;</span>
+                   <span style="color:#e6db74">:start</span> <span style="color:#ae81ff">12345</span>
+                   <span style="color:#e6db74">:stop</span> <span style="color:#ae81ff">34567</span>}))
+</code></pre></div><p>That's pretty readable.  We've gained a lot of flexibility, too, since
+we've decoupled the <em>semantic</em> meaning of a query from the underlying
+<em>syntactic</em> realities of my data schema and database.  We're free to
+change how we structure the underlying data (something we've already
+done several times in the course of this project!).  For instance,
+maybe we'll want to represent a peptide as a plain String instead of a
+complex object like we have here.  We only need to change one line of
+code for the queries to keep working.</p>
+<p>We can go further, extending our DSL to actually retrieving the
+results.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(<span style="color:#a6e22e">find-psms</span> [<span style="color:#f92672">&amp;</span> criteria]
+  (<span style="color:#a6e22e">fetch</span> PSM-COLLECTION <span style="color:#e6db74">:where</span> (apply query criteria)))
+</code></pre></div><p>Here, our application no longer even needs to be aware of which
+collection we're searching.  The code to retrieve our results is now:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-clojure" data-lang="clojure">(<span style="color:#a6e22e">find-psms</span> (<span style="color:#a6e22e">matching-peptide</span> <span style="color:#e6db74">&#34;GLYQRPHDSTRFK&#34;</span>)
+           (<span style="color:#a6e22e">with-e-value-cutoff</span> <span style="color:#ae81ff">0.001</span>)
+           (<span style="color:#a6e22e">in-region</span> {<span style="color:#e6db74">:chromosome</span> <span style="color:#e6db74">&#34;X&#34;</span>
+                       <span style="color:#e6db74">:strand</span> <span style="color:#e6db74">&#34;+&#34;</span>
+                       <span style="color:#e6db74">:start</span> <span style="color:#ae81ff">12345</span>
+                       <span style="color:#e6db74">:stop</span> <span style="color:#ae81ff">34567</span>}))
+</code></pre></div><p>That's almost exactly what the equivalent request would be in plain
+English.  You don't get much simpler.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Obviously what I have shown here is pretty basic stuff, and not at all
+difficult to implement.  There's a lot more that the application will
+have to do, including paging, limiting, sorting, as well as more
+complicated queries.  However, there's not much more functionality
+that needs to be added that is significantly different from what's
+been shown.  And look what has been gained: an almost-English query
+language that insulates our application not only from the specific
+modeling choices we've made, but also from the specific database
+system we are using.  This last point is particularly nice in my case,
+as I plan to migrate from MongoDB to a Neo4j graph database in the
+near future.  Using this DSL internally is going to make that task
+significantly more straightforward.</p>
+<p><strong>Update</strong>: Aaron Crow mentioned this post in his presentation
+<a href="https://github.com/dirtyvagabond/mongola">Clojure on Mongo: Fun and Easy with
+CongoMongo</a>, presented at
+Mongo LA on 19 January 2012.  Thanks, Aaron!</p>
+
+
+        
+
+        
+
+        
+      </article>
+
+      
+        <ul class="pager blog-pager">
+          
+            <li class="previous">
+              <a href="http://christophermaier.name/2011/07/07/writing-elegant-clojure-code-using-higher-order-functions/" data-toggle="tooltip" data-placement="top" title="Writing Elegant Clojure Code Using Higher-Order Functions">&larr; Previous Post</a>
+            </li>
+          
+          
+        </ul>
+      
+
+
+      
+
+    </div>
+  </div>
+</div>
+
+      
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links">
+          
+          
+        </ul>
+        <p class="credits copyright text-muted">
+          
+
+          &nbsp;&bull;&nbsp;&copy;
+          
+            2011
+          
+
+          
+            &nbsp;&bull;&nbsp;
+            <a href="http://christophermaier.name">Christopher Maier&#39;s Technical Blog</a>
+          
+        </p>
+        
+        <p class="credits theme-by text-muted">
+          <a href="https://gohugo.io">Hugo v0.60.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          
+        </p>
+      </div>
+    </div>
+  </div>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="http://christophermaier.name/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe-ui-default.min.js" integrity="sha384-m67o7SkQ1ALzKZIFh4CiTA8tmadaujiTa9Vu+nqPSwDOqHrDmxLezTdFln8077+q" crossorigin="anonymous"></script><script src="http://christophermaier.name/js/load-photoswipe.js"></script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+</html>
+
