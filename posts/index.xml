@@ -2,57 +2,57 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Christopher Maier&#39;s Technical Blog</title>
-    <link>http://christophermaier.name/posts/</link>
+    <link>https://christophermaier.name/posts/</link>
     <description>Recent content in Posts on Christopher Maier&#39;s Technical Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 17 Jul 2011 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://christophermaier.name/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://christophermaier.name/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Creating a Query DSL using Clojure and MongoDB</title>
-      <link>http://christophermaier.name/2011/07/17/creating-a-query-dsl-using-clojure-and-mongodb/</link>
+      <link>https://christophermaier.name/2011/07/17/creating-a-query-dsl-using-clojure-and-mongodb/</link>
       <pubDate>Sun, 17 Jul 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://christophermaier.name/2011/07/17/creating-a-query-dsl-using-clojure-and-mongodb/</guid>
+      <guid>https://christophermaier.name/2011/07/17/creating-a-query-dsl-using-clojure-and-mongodb/</guid>
       <description>One of the nice things about MongoDB (particularly when using it in Clojure via the Congomongo library) is that its map-based query language is so amenable to the creation of a domain-specific language, or DSL. Creating and manipulating maps is like breathing in Clojure, so it is trivial to decompose the different query requirements of your application into a small collection of simple functions that can be used to create a rather fluent domain-specific language.</description>
     </item>
     
     <item>
       <title>Writing Elegant Clojure Code Using Higher-Order Functions</title>
-      <link>http://christophermaier.name/2011/07/07/writing-elegant-clojure-code-using-higher-order-functions/</link>
+      <link>https://christophermaier.name/2011/07/07/writing-elegant-clojure-code-using-higher-order-functions/</link>
       <pubDate>Thu, 07 Jul 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://christophermaier.name/2011/07/07/writing-elegant-clojure-code-using-higher-order-functions/</guid>
+      <guid>https://christophermaier.name/2011/07/07/writing-elegant-clojure-code-using-higher-order-functions/</guid>
       <description>Back when I first started writing Clojure code, I heard lots about the use of higher-order functions (also known as HOFs). Since functions are first-class language members in Clojure, you can do things like pass them as arguments or return them from function calls. Any function that accepts or produces another function in this way is a higher-order function. This allows you to write some very powerful and consise code, because you can capture the general form of a computation, while allowing its specific behavior to be determined at runtime by the user.</description>
     </item>
     
     <item>
       <title>Github&#39;s new &#34;Fork and Edit&#34; Feature is Awesome</title>
-      <link>http://christophermaier.name/2011/05/22/githubs-new-fork-and-edit-feature-is-awesome/</link>
+      <link>https://christophermaier.name/2011/05/22/githubs-new-fork-and-edit-feature-is-awesome/</link>
       <pubDate>Sun, 22 May 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://christophermaier.name/2011/05/22/githubs-new-fork-and-edit-feature-is-awesome/</guid>
+      <guid>https://christophermaier.name/2011/05/22/githubs-new-fork-and-edit-feature-is-awesome/</guid>
       <description>Github recently rolled out a new Fork and Edit feature that is pretty awesome. It basically allows you to create your own fork of any Github project, edit files in a new branch of that fork, and create a pull request back to the original project, all from your web browser, and in about as much time as it&#39;s taken me to write this sentence. This really lowers the barrier for contributing code to other projects.</description>
     </item>
     
     <item>
       <title>The Importance of MongoDB Key Names</title>
-      <link>http://christophermaier.name/2011/05/22/the-importance-of-mongodb-key-names/</link>
+      <link>https://christophermaier.name/2011/05/22/the-importance-of-mongodb-key-names/</link>
       <pubDate>Sun, 22 May 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://christophermaier.name/2011/05/22/the-importance-of-mongodb-key-names/</guid>
+      <guid>https://christophermaier.name/2011/05/22/the-importance-of-mongodb-key-names/</guid>
       <description>Coming from a relational database background, you might not devote a lot of thought to the names of your columns. That is to say, while you make an effort to come up with a sensible and descriptive naming scheme for your columns, you probably don&#39;t think about the amount of space those names take up. And why should you? In a relational databases, the column names are stored once, probably in a central metadata table.</description>
     </item>
     
     <item>
       <title>Not-So-Private Clojure Functions</title>
-      <link>http://christophermaier.name/2011/04/30/not-so-private-clojure-functions/</link>
+      <link>https://christophermaier.name/2011/04/30/not-so-private-clojure-functions/</link>
       <pubDate>Sat, 30 Apr 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://christophermaier.name/2011/04/30/not-so-private-clojure-functions/</guid>
+      <guid>https://christophermaier.name/2011/04/30/not-so-private-clojure-functions/</guid>
       <description>If you&#39;ve been programming in Clojure for longer than, oh, about 5 minutes, you probably already know how defn creates a publicly accessible function in a namespace, while defn- creates a private one. If you&#39;re outside the original namespace and you try to call a private function, you will get the smackdown.
 Here&#39;s a simple demonstration. We&#39;ll create two functions, one public and one private, in the user namespace:
 user&amp;gt; (defn hello [] &amp;#34;Hello World&amp;#34;) #&amp;#39;user/hello user&amp;gt; (hello) &amp;#34;Hello World&amp;#34; user&amp;gt; (defn- secret [] &amp;#34;TOP SECRET&amp;#34;) #&amp;#39;user/secret user&amp;gt; (secret) &amp;#34;TOP SECRET&amp;#34; If we switch to the other namespace, though, we can only use the public one:</description>
@@ -60,30 +60,30 @@ user&amp;gt; (defn hello [] &amp;#34;Hello World&amp;#34;) #&amp;#39;user/hello 
     
     <item>
       <title>Using YUI_config to Set Up Custom YUI Modules</title>
-      <link>http://christophermaier.name/2011/03/24/using-yui_config-to-set-up-custom-yui-modules/</link>
+      <link>https://christophermaier.name/2011/03/24/using-yui_config-to-set-up-custom-yui-modules/</link>
       <pubDate>Thu, 24 Mar 2011 00:00:00 +0000</pubDate>
       
-      <guid>http://christophermaier.name/2011/03/24/using-yui_config-to-set-up-custom-yui-modules/</guid>
+      <guid>https://christophermaier.name/2011/03/24/using-yui_config-to-set-up-custom-yui-modules/</guid>
       <description>Once you have been using the YUI JavaScript framework for a little while, you&#39;ll inevitably need to write your own custom modules. For me, I started creating lots and lots of widgets and needed to figure out how to properly modularize everything. The documentation for creating modules using YUI.add is good, and it got me up and running quickly. So far, so good.
 Armed with a handful of widgets in proper YUI modules, I needed a way to actually register them with my YUI instances in order to use them.</description>
     </item>
     
     <item>
       <title>MongoDB Query Tricks, or &#34;Why Don&#39;t MongoDB Doesn&#39;t Not have $and?&#34;</title>
-      <link>http://christophermaier.name/2010/12/21/mongodb-query-tricks-or-why-dont-mongodb-doesnt-not-have-and/</link>
+      <link>https://christophermaier.name/2010/12/21/mongodb-query-tricks-or-why-dont-mongodb-doesnt-not-have-and/</link>
       <pubDate>Tue, 21 Dec 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://christophermaier.name/2010/12/21/mongodb-query-tricks-or-why-dont-mongodb-doesnt-not-have-and/</guid>
+      <guid>https://christophermaier.name/2010/12/21/mongodb-query-tricks-or-why-dont-mongodb-doesnt-not-have-and/</guid>
       <description>Pardon the atrocious grammar; there is a point!
 I recently had a tricky time formulating a particular query in MongoDB. As you probably know, MongoDB has a number of query operators to use. It&#39;s got stuff like $in, $nin, $or, and others, but no $and. Normally, you don&#39;t need something like $and, since the capability is there implicitly; you just list off all your conditions on your different document fields, and MongoDB finds all the documents that satisfy them all.</description>
     </item>
     
     <item>
       <title>Using MapReduce in Congomongo Now</title>
-      <link>http://christophermaier.name/2010/10/17/using-mapreduce-in-congomongo-now/</link>
+      <link>https://christophermaier.name/2010/10/17/using-mapreduce-in-congomongo-now/</link>
       <pubDate>Sun, 17 Oct 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://christophermaier.name/2010/10/17/using-mapreduce-in-congomongo-now/</guid>
+      <guid>https://christophermaier.name/2010/10/17/using-mapreduce-in-congomongo-now/</guid>
       <description>My patch to Congomongo that adds support for running MapReduce jobs in MongoDB was accepted, but that code hasn&#39;t yet been pushed out to the official Congomongo SNAPSHOT jar in Clojars.
 Until that happens, if you&#39;d like to use the new MapReduce code, you can use my version.
 If you&#39;re using Leiningen, add this to your project.clj:
@@ -93,10 +93,10 @@ If you&#39;re using Leiningen, add this to your project.clj:
     
     <item>
       <title>Using Idiomatic Clojure, Part 1 - comp</title>
-      <link>http://christophermaier.name/2010/10/12/using-idiomatic-clojure-part-1-comp/</link>
+      <link>https://christophermaier.name/2010/10/12/using-idiomatic-clojure-part-1-comp/</link>
       <pubDate>Tue, 12 Oct 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://christophermaier.name/2010/10/12/using-idiomatic-clojure-part-1-comp/</guid>
+      <guid>https://christophermaier.name/2010/10/12/using-idiomatic-clojure-part-1-comp/</guid>
       <description>As I read the Clojure code of others, I come across better ways to write my own code. Today&#39;s example comes from The Joy of Clojure by Michael Fogus and Chris Houser.
 I often find myself writing anonymous functions along the lines of
 #(not (vector? %)) to act as filters in various places (filter, for, take-while, etc.). I always thought it looked a bit gnarly like that. Fortunately, there is a better way, using the comp function.</description>
@@ -104,48 +104,48 @@ I often find myself writing anonymous functions along the lines of
     
     <item>
       <title>My iPhone Plays MP3s Again</title>
-      <link>http://christophermaier.name/2010/09/24/my-iphone-plays-mp3s-again/</link>
+      <link>https://christophermaier.name/2010/09/24/my-iphone-plays-mp3s-again/</link>
       <pubDate>Fri, 24 Sep 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://christophermaier.name/2010/09/24/my-iphone-plays-mp3s-again/</guid>
+      <guid>https://christophermaier.name/2010/09/24/my-iphone-plays-mp3s-again/</guid>
       <description>I recently upgraded my old iPhone 3G to iOS 4.1; I&#39;d heard the horror stories about the abysmal performance that iOS 4.0 had with the older phone, so I waited until Apple had the fix. Everything went well with the upgrade; I think my phone might actually be a little faster. But then I tried playing some music.
 A large portion of my library just wouldn&#39;t play. I&#39;d select a song and the iPod app would try to play it for a second or two, and then it would move on to the next song.</description>
     </item>
     
     <item>
       <title>Host-Only Networking with VirtualBox</title>
-      <link>http://christophermaier.name/2010/09/01/host-only-networking-with-virtualbox/</link>
+      <link>https://christophermaier.name/2010/09/01/host-only-networking-with-virtualbox/</link>
       <pubDate>Wed, 01 Sep 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://christophermaier.name/2010/09/01/host-only-networking-with-virtualbox/</guid>
+      <guid>https://christophermaier.name/2010/09/01/host-only-networking-with-virtualbox/</guid>
       <description>I&#39;ve been playing around with VirtualBox lately, and it&#39;s pretty nifty. Initially I just used it to set up an Ubuntu machine so I could easily run GnuCash on my MacBook, but lately I&#39;ve decided to start using it at work, too. I&#39;ve got lots of plans: figure out how to use Chef, set up my own Hudson server, get a MongoDB cluster running, etc. I&#39;d like all of these machines to be able to access the internet for downloading packages and the like, and I also want to be able to access them easily from my host machine.</description>
     </item>
     
     <item>
       <title>Patches Accepted!</title>
-      <link>http://christophermaier.name/2010/08/23/patches-accepted/</link>
+      <link>https://christophermaier.name/2010/08/23/patches-accepted/</link>
       <pubDate>Mon, 23 Aug 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://christophermaier.name/2010/08/23/patches-accepted/</guid>
+      <guid>https://christophermaier.name/2010/08/23/patches-accepted/</guid>
       <description>I just heard that my map-reduce patch and my my GridFS InputStream patch for Congomongo were both committed to the main Congomongo repository! This marks my first official open source code contributions, and hopeuflly not the last.</description>
     </item>
     
     <item>
       <title>The Path to MapReduce with Congomongo</title>
-      <link>http://christophermaier.name/2010/08/21/the-path-to-mapreduce-with-congomongo/</link>
+      <link>https://christophermaier.name/2010/08/21/the-path-to-mapreduce-with-congomongo/</link>
       <pubDate>Sat, 21 Aug 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://christophermaier.name/2010/08/21/the-path-to-mapreduce-with-congomongo/</guid>
+      <guid>https://christophermaier.name/2010/08/21/the-path-to-mapreduce-with-congomongo/</guid>
       <description>I&#39;ve recently started a Clojure / MongoDB project at work to help us with our proteogenomic annotation work. Naturally, I&#39;m using Congomongo to interact with the database. It&#39;s a great wrapper for the MongoDB Java driver, written in a very nice functional style.
 Lately I&#39;ve been looking into the map-reduce capabilities of MongoDB and have been trying to figure out how to make it work from Clojure. Looking at the Congomongo API, I came across the server-eval function, which looked like a promising place to start.</description>
     </item>
     
     <item>
       <title>Easy Clojure API Search with Google Chrome</title>
-      <link>http://christophermaier.name/2010/08/08/easy-clojure-api-search-with-google-chrome/</link>
+      <link>https://christophermaier.name/2010/08/08/easy-clojure-api-search-with-google-chrome/</link>
       <pubDate>Sun, 08 Aug 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://christophermaier.name/2010/08/08/easy-clojure-api-search-with-google-chrome/</guid>
+      <guid>https://christophermaier.name/2010/08/08/easy-clojure-api-search-with-google-chrome/</guid>
       <description>Do you need an easy way to search Clojure&amp;lsquo;s API? Do you use Google&#39;s Chrome browser? If so, you&#39;re in luck; it&#39;s incredibly easy to add a custom engine to Chrome to search the API. Here&#39;s how.
 Setting Up a Custom Search Engine First, open your preferences and hit the &amp;ldquo;Manage&amp;rdquo; button down by &amp;ldquo;Default Search&amp;rdquo;.
 That will bring up a Search Engines box. This is how Chrome knows to search, say, Google for whatever you type in the Address Bar (or OmniBox, as it&#39;s also known).</description>
@@ -153,20 +153,20 @@ That will bring up a Search Engines box. This is how Chrome knows to search, say
     
     <item>
       <title>Comparing Settings From Different PostgreSQL Databases</title>
-      <link>http://christophermaier.name/2010/04/27/comparing-settings-from-different-postgresql-databases/</link>
+      <link>https://christophermaier.name/2010/04/27/comparing-settings-from-different-postgresql-databases/</link>
       <pubDate>Tue, 27 Apr 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://christophermaier.name/2010/04/27/comparing-settings-from-different-postgresql-databases/</guid>
+      <guid>https://christophermaier.name/2010/04/27/comparing-settings-from-different-postgresql-databases/</guid>
       <description>I&#39;m in the process of migrating from an older version of PostgreSQL to a newer version. I&#39;d like to see what the differences are between the configuration (${PG_DATA}/postgresql.conf) of both servers. I couldn&#39;t find an easy, ready-made solution, so I hacked up one using plain old SQL, which turns out to be particularly well suited to comparing sets of data :)
 First, get the settings from the old server. We&#39;ll use psql to execute the SHOW ALL query and pipe the result (stripped of all extraneous formatting) to the file old_settings.</description>
     </item>
     
     <item>
       <title>Blogging on Github with Jekyll</title>
-      <link>http://christophermaier.name/2010/04/25/blogging-on-github-with-jekyll/</link>
+      <link>https://christophermaier.name/2010/04/25/blogging-on-github-with-jekyll/</link>
       <pubDate>Sun, 25 Apr 2010 00:00:00 +0000</pubDate>
       
-      <guid>http://christophermaier.name/2010/04/25/blogging-on-github-with-jekyll/</guid>
+      <guid>https://christophermaier.name/2010/04/25/blogging-on-github-with-jekyll/</guid>
       <description>As per the instructions on the Jekyll install page,
 gem install jekyll then (since I didn&#39;t have this set already):
 export PATH=${PATH}:/Users/maier/.gem/ruby/1.8/bin added to my Bash ~/.profile file.
