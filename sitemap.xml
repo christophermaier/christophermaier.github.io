@@ -3,6 +3,10 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://christophermaier.name/about/</loc>
+  </url>
+  
+  <url>
     <loc>http://christophermaier.name/</loc>
     <lastmod>2011-07-17T00:00:00+00:00</lastmod>
   </url>
@@ -90,10 +94,6 @@
   <url>
     <loc>http://christophermaier.name/2010/04/25/blogging-on-github-with-jekyll/</loc>
     <lastmod>2010-04-25T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://christophermaier.name/about/</loc>
   </url>
   
   <url>

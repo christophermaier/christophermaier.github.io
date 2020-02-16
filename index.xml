@@ -12,6 +12,16 @@
     
     
     <item>
+      <title>About</title>
+      <link>http://christophermaier.name/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://christophermaier.name/about/</guid>
+      <description>My name is Christopher Maier, a software engineer that enjoys building things from both bytes and atoms.
+In the past, I&#39;ve worked at Operable and Chef. Prior to that, I worked as a bioinformatics developer, as well as a viral oncology lab technician, both at UNC Chapel Hill.</description>
+    </item>
+    
+    <item>
       <title>Creating a Query DSL using Clojure and MongoDB</title>
       <link>http://christophermaier.name/2011/07/17/creating-a-query-dsl-using-clojure-and-mongodb/</link>
       <pubDate>Sun, 17 Jul 2011 00:00:00 +0000</pubDate>
@@ -173,16 +183,6 @@ export PATH=${PATH}:/Users/maier/.gem/ruby/1.8/bin added to my Bash ~/.profile f
 Pygments is cool for syntax highlighting. On a Mac with MacPorts, it&#39;s as easy as this:
 sudo port install python25 py25-pygments Running Jekyll with its standalone server is great for testing your site locally:
 jekyll --auto --server That&#39;ll run an embedded web server at http://localhost:4000 (by default); anytime you change any of your site files, Jekyll will reprocess them and make them available immediately.</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>http://christophermaier.name/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://christophermaier.name/about/</guid>
-      <description>My name is Christopher Maier, a software engineer that enjoys building things from both bytes and atoms.
-In the past, I&#39;ve worked at Operable and Chef. Prior to that, I worked as a bioinformatics developer, as well as a viral oncology lab technician, both at UNC Chapel Hill.</description>
     </item>
     
   </channel>
