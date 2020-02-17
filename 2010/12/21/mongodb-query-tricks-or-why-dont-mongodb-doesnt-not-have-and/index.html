@@ -9,7 +9,8 @@
 
   <title>MongoDB Query Tricks, or &#34;Why Don&#39;t MongoDB Doesn&#39;t Not have $and?&#34; - Christopher Maier</title>
   <meta name="description" content="Pardon the atrocious grammar; there is a point!
-I recently had a tricky time formulating a particular query in MongoDB. As you probably know, MongoDB has a number of query operators to use. It&#39;s got stuff like $in, $nin, $or, and others, but no $and. Normally, you don&#39;t need something like $and, since the capability is there implicitly; you just list off all your conditions on your different document fields, and MongoDB finds all the documents that satisfy them all."><script type="application/ld+json">
+I recently had a tricky time formulating a particular query in MongoDB. As you probably know, MongoDB has a number of query operators to use. It&#39;s got stuff like $in, $nin, $or, and others, but no $and. Normally, you don&#39;t need something like $and, since the capability is there implicitly; you just list off all your conditions on your different document fields, and MongoDB finds all the documents that satisfy them all.">
+  <meta name="author" content="Christopher Maier"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
@@ -54,7 +55,7 @@ I recently had a tricky time formulating a particular query in MongoDB. As you p
   "@context": "http://schema.org",
   "@type": "Article",
   "author": {
-    "name" : ""
+    "name" : "Christopher Maier"
   },
   "headline": "MongoDB Query Tricks, or \x22Why Don\x27t MongoDB Doesn\x27t Not have $and?\x22",
   "description" : "Pardon the atrocious grammar; there is a point!\nI recently had a tricky time formulating a particular query in MongoDB. As you probably know, MongoDB has a number of query operators to use. It\x27s got stuff like $in, $nin, $or, and others, but no $and. Normally, you don\x27t need something like $and, since the capability is there implicitly; you just list off all your conditions on your different document fields, and MongoDB finds all the documents that satisfy them all.",
@@ -348,6 +349,34 @@ English teacher says.</p>
 
 
       
+        
+          
+          <div class="disqus-comments">
+            <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "christophermaier" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+          </div>
+          
+        
+        
+      
 
     </div>
   </div>
@@ -360,9 +389,29 @@ English teacher says.</p>
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <ul class="list-inline text-center footer-links">
           
+              <li>
+                <a href="https://github.com/christophermaier" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/christopher-maier-79962626" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
           
         </ul>
         <p class="credits copyright text-muted">
+          
+            
+              <a href="https://christophermaier.name">Christopher Maier</a>
+            
           
 
           &nbsp;&bull;&nbsp;&copy;

@@ -9,7 +9,8 @@
 
   <title>Comparing Settings From Different PostgreSQL Databases - Christopher Maier</title>
   <meta name="description" content="I&#39;m in the process of migrating from an older version of PostgreSQL to a newer version. I&#39;d like to see what the differences are between the configuration (${PG_DATA}/postgresql.conf) of both servers. I couldn&#39;t find an easy, ready-made solution, so I hacked up one using plain old SQL, which turns out to be particularly well suited to comparing sets of data :)
-First, get the settings from the old server. We&#39;ll use psql to execute the SHOW ALL query and pipe the result (stripped of all extraneous formatting) to the file old_settings."><script type="application/ld+json">
+First, get the settings from the old server. We&#39;ll use psql to execute the SHOW ALL query and pipe the result (stripped of all extraneous formatting) to the file old_settings.">
+  <meta name="author" content="Christopher Maier"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
     "@type": "WebSite",
@@ -54,7 +55,7 @@ First, get the settings from the old server. We&#39;ll use psql to execute the S
   "@context": "http://schema.org",
   "@type": "Article",
   "author": {
-    "name" : ""
+    "name" : "Christopher Maier"
   },
   "headline": "Comparing Settings From Different PostgreSQL Databases",
   "description" : "I\x27m in the process of migrating from an older version of PostgreSQL to a newer version. I\x27d like to see what the differences are between the configuration (${PG_DATA}\/postgresql.conf) of both servers. I couldn\x27t find an easy, ready-made solution, so I hacked up one using plain old SQL, which turns out to be particularly well suited to comparing sets of data :)\nFirst, get the settings from the old server. We\x27ll use psql to execute the SHOW ALL query and pipe the result (stripped of all extraneous formatting) to the file old_settings.",
@@ -331,6 +332,34 @@ what's going on:</p>
 
 
       
+        
+          
+          <div class="disqus-comments">
+            <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "christophermaier" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+          </div>
+          
+        
+        
+      
 
     </div>
   </div>
@@ -343,9 +372,29 @@ what's going on:</p>
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <ul class="list-inline text-center footer-links">
           
+              <li>
+                <a href="https://github.com/christophermaier" title="GitHub">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="https://linkedin.com/in/christopher-maier-79962626" title="LinkedIn">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
           
         </ul>
         <p class="credits copyright text-muted">
+          
+            
+              <a href="https://christophermaier.name">Christopher Maier</a>
+            
           
 
           &nbsp;&bull;&nbsp;&copy;
