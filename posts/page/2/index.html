@@ -35,27 +35,26 @@
 <meta property="og:site_name" content="Christopher Maier" />
 
   <meta name="twitter:title" content="Posts" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="generator" content="Hugo 0.60.0" />
-  <link rel="alternate" href="https://christophermaier.name/index.xml" type="application/rss+xml" title="Christopher Maier"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="generator" content="Hugo 0.104.3" />
+  <link rel="alternate" href="https://christophermaier.name/index.xml" type="application/rss+xml" title="Christopher Maier"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><link rel="stylesheet" href="https://christophermaier.name/css/main.css" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" /><link rel="stylesheet" href="https://christophermaier.name/css/syntax.css" /><link rel="stylesheet" href="https://christophermaier.name/css/codeblock.css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.css" integrity="sha384-h/L2W9KefUClHWaty3SLE5F/qvc4djlyR4qY3NUV5HGQBBW7stbcfff1+I/vmsHh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/default-skin/default-skin.min.css" integrity="sha384-iD0dNku6PYSIQLyfTOpB06F2KCZJAKLOThS5HRe8b3ibhdEQ6eKsFf/EeFxdOt5R" crossorigin="anonymous">
 
-
 <script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 	ga('create', 'UA-18090378-1', 'auto');
 	
 	ga('send', 'pageview');
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-
   </head>
   <body>
     <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
@@ -161,6 +160,7 @@ if (!doNotTrack) {
 
   <header class="header-section ">
     
+    
     <div class="intro-header no-img">
       <div class="container">
         <div class="row">
@@ -179,6 +179,7 @@ if (!doNotTrack) {
         </div>
       </div>
     </div>
+  
   </header>
 
 
@@ -217,7 +218,7 @@ if (!doNotTrack) {
     </p>
     <div class="post-entry">
         
-        I've been playing around with VirtualBox lately, and it's pretty nifty. Initially I just used it to set up an Ubuntu machine so I could easily run GnuCash on my MacBook, but lately I've decided to start using it at work, too. I've got lots of plans: figure out how to use Chef, set up my own Hudson server, get a MongoDB cluster running, etc. I'd like all of these machines to be able to access the internet for downloading packages and the like, and I also want to be able to access them easily from my host machine.
+        I&rsquo;ve been playing around with VirtualBox lately, and it&rsquo;s pretty nifty. Initially I just used it to set up an Ubuntu machine so I could easily run GnuCash on my MacBook, but lately I&rsquo;ve decided to start using it at work, too. I&rsquo;ve got lots of plans: figure out how to use Chef, set up my own Hudson server, get a MongoDB cluster running, etc. I&rsquo;d like all of these machines to be able to access the internet for downloading packages and the like, and I also want to be able to access them easily from my host machine.
         <a href="https://christophermaier.name/2010/09/01/host-only-networking-with-virtualbox/" class="post-read-more">[Read More]</a>
         
     </div>
@@ -294,8 +295,8 @@ contributions, and hopeuflly not the last.</p>
     </p>
     <div class="post-entry">
         
-        I've recently started a Clojure / MongoDB project at work to help us with our proteogenomic annotation work. Naturally, I'm using Congomongo to interact with the database. It's a great wrapper for the MongoDB Java driver, written in a very nice functional style.
-Lately I've been looking into the map-reduce capabilities of MongoDB and have been trying to figure out how to make it work from Clojure. Looking at the Congomongo API, I came across the server-eval function, which looked like a promising place to start.
+        I&rsquo;ve recently started a Clojure / MongoDB project at work to help us with our proteogenomic annotation work. Naturally, I&rsquo;m using Congomongo to interact with the database. It&rsquo;s a great wrapper for the MongoDB Java driver, written in a very nice functional style.
+Lately I&rsquo;ve been looking into the map-reduce capabilities of MongoDB and have been trying to figure out how to make it work from Clojure. Looking at the Congomongo API, I came across the server-eval function, which looked like a promising place to start.
         <a href="https://christophermaier.name/2010/08/21/the-path-to-mapreduce-with-congomongo/" class="post-read-more">[Read More]</a>
         
     </div>
@@ -332,9 +333,9 @@ Lately I've been looking into the map-reduce capabilities of MongoDB and have be
     </p>
     <div class="post-entry">
         
-        Do you need an easy way to search Clojure&lsquo;s API? Do you use Google's Chrome browser? If so, you're in luck; it's incredibly easy to add a custom engine to Chrome to search the API. Here's how.
+        Do you need an easy way to search Clojure&rsquo;s API? Do you use Google&rsquo;s Chrome browser? If so, you&rsquo;re in luck; it&rsquo;s incredibly easy to add a custom engine to Chrome to search the API. Here&rsquo;s how.
 Setting Up a Custom Search Engine First, open your preferences and hit the &ldquo;Manage&rdquo; button down by &ldquo;Default Search&rdquo;.
-That will bring up a Search Engines box. This is how Chrome knows to search, say, Google for whatever you type in the Address Bar (or OmniBox, as it's also known).
+That will bring up a Search Engines box. This is how Chrome knows to search, say, Google for whatever you type in the Address Bar (or OmniBox, as it&rsquo;s also known).
         <a href="https://christophermaier.name/2010/08/08/easy-clojure-api-search-with-google-chrome/" class="post-read-more">[Read More]</a>
         
     </div>
@@ -371,8 +372,8 @@ That will bring up a Search Engines box. This is how Chrome knows to search, say
     </p>
     <div class="post-entry">
         
-        I'm in the process of migrating from an older version of PostgreSQL to a newer version. I'd like to see what the differences are between the configuration (${PG_DATA}/postgresql.conf) of both servers. I couldn't find an easy, ready-made solution, so I hacked up one using plain old SQL, which turns out to be particularly well suited to comparing sets of data :)
-First, get the settings from the old server. We'll use psql to execute the SHOW ALL query and pipe the result (stripped of all extraneous formatting) to the file old_settings.
+        I&rsquo;m in the process of migrating from an older version of PostgreSQL to a newer version. I&rsquo;d like to see what the differences are between the configuration (${PG_DATA}/postgresql.conf) of both servers. I couldn&rsquo;t find an easy, ready-made solution, so I hacked up one using plain old SQL, which turns out to be particularly well suited to comparing sets of data :)
+First, get the settings from the old server. We&rsquo;ll use psql to execute the SHOW ALL query and pipe the result (stripped of all extraneous formatting) to the file old_settings.
         <a href="https://christophermaier.name/2010/04/27/comparing-settings-from-different-postgresql-databases/" class="post-read-more">[Read More]</a>
         
     </div>
@@ -410,11 +411,11 @@ First, get the settings from the old server. We'll use psql to execute the SHOW 
     <div class="post-entry">
         
         As per the instructions on the Jekyll install page,
-gem install jekyll then (since I didn't have this set already):
+gem install jekyll then (since I didn&rsquo;t have this set already):
 export PATH=${PATH}:/Users/maier/.gem/ruby/1.8/bin added to my Bash ~/.profile file.
-Pygments is cool for syntax highlighting. On a Mac with MacPorts, it's as easy as this:
+Pygments is cool for syntax highlighting. On a Mac with MacPorts, it&rsquo;s as easy as this:
 sudo port install python25 py25-pygments Running Jekyll with its standalone server is great for testing your site locally:
-jekyll --auto --server That'll run an embedded web server at http://localhost:4000 (by default); anytime you change any of your site files, Jekyll will reprocess them and make them available immediately.
+jekyll --auto --server That&rsquo;ll run an embedded web server at http://localhost:4000 (by default); anytime you change any of your site files, Jekyll will reprocess them and make them available immediately.
         <a href="https://christophermaier.name/2010/04/25/blogging-on-github-with-jekyll/" class="post-read-more">[Read More]</a>
         
     </div>
@@ -446,7 +447,9 @@ jekyll --auto --server That'll run an embedded web server at http://localhost:40
         <ul class="list-inline text-center footer-links">
           
               <li>
-                <a href="https://github.com/christophermaier" title="GitHub">
+		
+		  <a href="https://github.com/christophermaier" title="GitHub">
+		
                   <span class="fa-stack fa-lg">
                     <i class="fas fa-circle fa-stack-2x"></i>
                     <i class="fab fa-github fa-stack-1x fa-inverse"></i>
@@ -454,7 +457,9 @@ jekyll --auto --server That'll run an embedded web server at http://localhost:40
                 </a>
               </li>
               <li>
-                <a href="https://linkedin.com/in/christopher-maier-79962626" title="LinkedIn">
+		
+		  <a href="https://linkedin.com/in/christopher-maier-79962626" title="LinkedIn">
+		
                   <span class="fa-stack fa-lg">
                     <i class="fas fa-circle fa-stack-2x"></i>
                     <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
@@ -482,15 +487,15 @@ jekyll --auto --server That'll run an embedded web server at http://localhost:40
         </p>
         
         <p class="credits theme-by text-muted">
-          <a href="https://gohugo.io">Hugo v0.60.0</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
+          <a href="https://gohugo.io">Hugo v0.104.3</a> powered &nbsp;&bull;&nbsp; Theme <a href="https://github.com/halogenica/beautifulhugo">Beautiful Hugo</a> adapted from <a href="https://deanattali.com/beautiful-jekyll/">Beautiful Jekyll</a>
           
         </p>
       </div>
     </div>
   </div>
-</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.js" integrity="sha384-K3vbOmF2BtaVai+Qk37uypf7VrgBubhQreNQe9aGsz9lB63dIFiQVlJbr92dw2Lx" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/contrib/auto-render.min.js" integrity="sha384-kmZOZB5ObwgQnS/DuDg6TScgOiWWBiVt0plIRkZCmE6rDZGrEOQeHM5PcHi+nyqe" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+</footer><script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <script src="https://christophermaier.name/js/main.js"></script><script> renderMathInElement(document.body); </script><script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.2/photoswipe.min.js" integrity="sha384-QELNnmcmU8IR9ZAykt67vGr9/rZJdHbiWi64V88fCPaOohUlHCqUD/unNN0BXSqy" crossorigin="anonymous"></script>
